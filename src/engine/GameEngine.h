@@ -13,6 +13,7 @@
 #include <vector>
 #include "../gameItems/GameItem.h"
 #include "SDL.h"
+#include "../renderer/RenderController.h"
 
 class GameEngine {
 
@@ -29,7 +30,8 @@ class GameEngine {
             isRunning = false;
         }
 
-        GameEngine(std::vector<GameItem *> gameItems) : gameItems(gameItems) { }
+        GameEngine(std::vector<GameItem *> gameItems, RenderController * renderController) :
+            gameItems(gameItems), renderController(renderController) { }
 
         ~GameEngine() {
             // nothing to do here either
@@ -39,6 +41,7 @@ class GameEngine {
         // Private fields
         bool isRunning = false;
         std::vector<GameItem *> gameItems;
+        RenderController * renderController;
         SDL_Event e;
 
         // Private methods
@@ -54,6 +57,8 @@ class GameEngine {
                 // 2) Update game items
                 updateGameItems();
                 // 3) Render to the screen
+                renderController->render();
+
 
                 // wait for keypress
                 // std::cin.ignore();
