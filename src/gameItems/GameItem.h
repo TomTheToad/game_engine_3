@@ -28,16 +28,16 @@ class GameItem {
 
                 switch(move) {
                     case Base_Moves::left:
-                        x -= 1;
+                        x -= moveDistanceInPixels;
                         break;
                     case Base_Moves::right:
-                        x += 1;
+                        x += moveDistanceInPixels;
                         break;
                     case Base_Moves::up:
-                        y += 1;
+                        y -= moveDistanceInPixels;
                         break;
                     case Base_Moves::down:
-                        y -= 1;
+                        y += moveDistanceInPixels;
                         break;
                     case Base_Moves::shoot:
                         std::cout << "Pew Pew Pew";
@@ -49,13 +49,25 @@ class GameItem {
         // void virtual HandleCollision();
         bool hasImage() { return (imageFile.length() > 0); }
 
+        // location
         int x = 0;
         int y = 0;
         int widthInPixels = 10;
         int heightInPixels = 10;
 
+        // Play boundary limits within game
+
         bool isPlayerControlled = false;
 
+        int moveDistanceInPixels = 10;
+
+        // red green blue alpha : default = gray
+        unsigned char red = 111;
+        unsigned char green = 115;
+        unsigned char blue = 115;
+        unsigned char alpha = 1;
+        
+        // Texture map
         std::string imageFile;
 
 };

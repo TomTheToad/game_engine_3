@@ -59,17 +59,36 @@ class GameEngine {
                 // 3) Render to the screen
                 renderController->render();
 
-
-                // wait for keypress
-                // std::cin.ignore();
-                // stopGame();
             }
             std::cout << "Game has stopped" << std::endl;
         }
 
         void updateGameItems() {
             for (GameItem * item : gameItems) {
+                // Check location of player item
+
+                if (item->isPlayerControlled) {
+                    checkLocationOfPlayer(item);
+                }
+
+                // Update item
                 item->Update();
+            }
+        }
+
+        // TODO: Make this a generic check so can use with NPCs as well.
+        void checkLocationOfPlayer(GameItem * player) {
+            unsigned int xMax = renderController->getWindowWidth() - player->widthInPixels;
+            unsigned int yMax = renderController->getWindowHeight() - player->heightInPixels;
+            
+            if (player->x < 0) {
+                player->x = 0;
+            } else if (player->x > xMax) {
+                player->x = xMax; 
+            } else if (player->y < 0) {
+                player->y = 0;
+            } else if (player->y > yMax) {
+                player->y = yMax;
             }
         }
 
@@ -117,7 +136,6 @@ class GameEngine {
                 }
             }
         }
-
 };
 
 #endif
