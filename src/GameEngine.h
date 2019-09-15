@@ -103,7 +103,7 @@ class GameEngine {
             renderController->render();
         }
 
-        // TODO: move to input controller?
+        // TODO: move to input or game controller?
         void checkForInput() {
             while(SDL_PollEvent(&e)) {
                 if(e.type == SDL_QUIT) {
@@ -112,23 +112,23 @@ class GameEngine {
                     switch(e.key.keysym.sym) {
                         case SDLK_UP:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::up);
-                            std::cout << "Up" << std::endl;
+                            // std::cout << "Up" << std::endl;
                             break;
                         case SDLK_DOWN:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::down);
-                            std::cout << "Down" << std::endl;
+                            // std::cout << "Down" << std::endl;
                             break;
                         case SDLK_LEFT:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::left);
-                            std::cout << "Left" << std::endl;
+                            // std::cout << "Left" << std::endl;
                             break;
                         case SDLK_RIGHT:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::right);
-                            std::cout << "Right" << std::endl;
+                            // std::cout << "Right" << std::endl;
                             break;
                         case SDLK_SPACE:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::shoot);
-                            std::cout << "Shoot!" << std::endl;
+                            // std::cout << "Shoot!" << std::endl;
                             break;
                     }
                 }

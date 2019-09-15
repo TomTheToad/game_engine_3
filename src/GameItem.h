@@ -4,46 +4,26 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <limits>
 
 class GameItem {
     public:
         
-        // TODO: add back when necessary
         // Inner enum with allowed movements
         enum class Base_Moves {left, right, up, down, shoot};
         std::vector<Base_Moves> allBaseMoves {Base_Moves::down, Base_Moves::up, Base_Moves::right, Base_Moves::left, Base_Moves::shoot};
         std::vector<Base_Moves> allowed_moves = {};
 
-        GameItem(int x, int y, int widthInPixels, int heightInPixels) : x(x), y(y), widthInPixels(widthInPixels), heightInPixels(heightInPixels) { }
+        GameItem(int x, int y, int widthInPixels, int heightInPixels) :
+            x(x), y(y), widthInPixels(widthInPixels), heightInPixels(heightInPixels) { }
         virtual ~GameItem() {}
 
         // Method or macro method to include in an update cycle
-        void virtual Update();
+        void virtual update() {}
 
         // Handle input
-        // TODO: make move amount dynamic
-        void handleInput(Base_Moves move) {
-            if(std::find(allowed_moves.begin(), allowed_moves.end(), move) != allowed_moves.end()) {
-                std::printf("Command received: %d", move);
-
-                switch(move) {
-                    case Base_Moves::left:
-                        x -= moveDistanceInPixels;
-                        break;
-                    case Base_Moves::right:
-                        x += moveDistanceInPixels;
-                        break;
-                    case Base_Moves::up:
-                        y -= moveDistanceInPixels;
-                        break;
-                    case Base_Moves::down:
-                        y += moveDistanceInPixels;
-                        break;
-                    case Base_Moves::shoot:
-                        std::cout << "Pew Pew Pew";
-                        break;
-                }
-            }
+        void virtual handleInput(Base_Moves move) {
+            return;
         }
 
         // void virtual HandleCollision();
@@ -55,11 +35,13 @@ class GameItem {
         int widthInPixels = 10;
         int heightInPixels = 10;
 
-        // Play boundary limits within game
-
+        // Item game specific details with defaults
         bool isPlayerControlled = false;
-
         int moveDistanceInPixels = 10;
+        int xMin = 0;
+        int xMax = std::numeric_limits<int>::max();
+        int yMin = 0;
+        int yMax = std::numeric_limits<int>::max();
 
         // red green blue alpha : default = gray
         unsigned char red = 111;
@@ -71,9 +53,5 @@ class GameItem {
         std::string imageFile;
 
 };
-
-void GameItem::Update() {
-    // std::printf("Game item at x:%d y:%d updated!", this->x, this->y);
-}
 
 #endif
