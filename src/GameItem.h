@@ -1,5 +1,5 @@
-#ifndef GAME_ITEM_H
-#define GAME_ITEM_H
+#ifndef GAMEITEM_H
+#define GAMEITEM_H
 
 #include <iostream>
 #include <vector>

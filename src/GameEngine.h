@@ -14,6 +14,7 @@
 #include "GameItem.h"
 #include "SDL.h"
 #include "RenderController.h"
+#include "GameController.h"
 
 class GameEngine {
 
@@ -30,8 +31,17 @@ class GameEngine {
             isRunning = false;
         }
 
-        GameEngine(std::vector<GameItem *> gameItems, RenderController * renderController) :
-            gameItems(gameItems), renderController(renderController) { }
+        // GameEngine(std::vector<GameItem *> gameItems, RenderController * renderController) :
+        //     gameItems(gameItems), renderController(renderController) { }
+        GameEngine(GameController * gameController) : gameController(gameController) {
+            renderController = new RenderController(
+                gameController->screenWidth, 
+                gameController->screenHeight,
+                gameController->gridWidth,
+                gameController->gridHeight,
+                gameController->gameItems
+                );
+        }
 
         ~GameEngine() {
             // nothing to do here either
@@ -40,58 +50,60 @@ class GameEngine {
     private:
         // Private fields
         bool isRunning = false;
-        std::vector<GameItem *> gameItems;
+
+        // std::vector<GameItem *> gameItems;
+        GameController * gameController;
         RenderController * renderController;
+
+        // Private sdl event
         SDL_Event e;
 
-        // Private methods
+        // Frame Duration Fields
+        unsigned int frameStart;
+        unsigned int frameEnd;
+        unsigned int frameDuration;
+        unsigned int frameCount;
 
+        // Private methods
         // Main game engine loop macro
         void run() {
+            frameCount = 0;
+
             std::cout << "Game is running" << std::endl;
             while(isRunning) {
 
-                // TODO: 3 things
+                // Get frame start time
+                frameStart = SDL_GetTicks();
+
                 // 1) Check for input
                 checkForInput();
                 // 2) Update game items
-                updateGameItems();
+                update();
                 // 3) Render to the screen
-                renderController->render();
+                render();
+
+                // Keep track of how long each loop takes
+                frameCount++;
+                frameDuration = frameEnd - frameStart;
+
+                if(frameDuration < gameController->targetFrameDuration) {
+                    SDL_Delay(gameController->targetFrameDuration - frameDuration);
+                }
 
             }
             std::cout << "Game has stopped" << std::endl;
         }
 
-        void updateGameItems() {
-            for (GameItem * item : gameItems) {
-                // Check location of player item
+        void update() {
+            gameController->updateGameItems();
 
-                if (item->isPlayerControlled) {
-                    checkLocationOfPlayer(item);
-                }
-
-                // Update item
-                item->Update();
-            }
         }
 
-        // TODO: Make this a generic check so can use with NPCs as well.
-        void checkLocationOfPlayer(GameItem * player) {
-            unsigned int xMax = renderController->getWindowWidth() - player->widthInPixels;
-            unsigned int yMax = renderController->getWindowHeight() - player->heightInPixels;
-            
-            if (player->x < 0) {
-                player->x = 0;
-            } else if (player->x > xMax) {
-                player->x = xMax; 
-            } else if (player->y < 0) {
-                player->y = 0;
-            } else if (player->y > yMax) {
-                player->y = yMax;
-            }
+        void render() {
+            renderController->render();
         }
 
+        // TODO: move to input controller?
         void checkForInput() {
             while(SDL_PollEvent(&e)) {
                 if(e.type == SDL_QUIT) {
@@ -99,40 +111,26 @@ class GameEngine {
                 } else if (e.type == SDL_KEYDOWN) {
                     switch(e.key.keysym.sym) {
                         case SDLK_UP:
-                            sendInputToGameItems(GameItem::Base_Moves::up);
+                            gameController->sendInputToGameItems(GameItem::Base_Moves::up);
                             std::cout << "Up" << std::endl;
                             break;
                         case SDLK_DOWN:
-                            sendInputToGameItems(GameItem::Base_Moves::down);
+                            gameController->sendInputToGameItems(GameItem::Base_Moves::down);
                             std::cout << "Down" << std::endl;
                             break;
                         case SDLK_LEFT:
-                            sendInputToGameItems(GameItem::Base_Moves::left);
+                            gameController->sendInputToGameItems(GameItem::Base_Moves::left);
                             std::cout << "Left" << std::endl;
                             break;
                         case SDLK_RIGHT:
-                            sendInputToGameItems(GameItem::Base_Moves::right);
+                            gameController->sendInputToGameItems(GameItem::Base_Moves::right);
                             std::cout << "Right" << std::endl;
                             break;
                         case SDLK_SPACE:
-                            sendInputToGameItems(GameItem::Base_Moves::shoot);
+                            gameController->sendInputToGameItems(GameItem::Base_Moves::shoot);
                             std::cout << "Shoot!" << std::endl;
                             break;
                     }
-                }
-            }
-        }
-
-        // send command to single item
-        // void commandGameItem(GameItem::Base_Moves move) {
-            
-        // }
-
-        // poll all items give player(s) input
-        void sendInputToGameItems(GameItem::Base_Moves move) {
-            for (GameItem * item : gameItems) {
-                if(item->isPlayerControlled) {
-                    item->handleInput(move);
                 }
             }
         }
