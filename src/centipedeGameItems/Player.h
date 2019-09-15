@@ -1,12 +1,12 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PLAYERITEM_H
+#define PLAYERITEM_H
 
 #include <iostream>
 #include "../GameItem.h"
 
-class Player : public GameItem {
+class PlayerItem : public GameItem {
     public:
-        Player(int x, int y, int widthInPixels, int heightInPixels) : 
+        PlayerItem(int x, int y, int widthInPixels, int heightInPixels) : 
         GameItem(x, y, widthInPixels, heightInPixels) {
             isPlayerControlled = true;
             allowed_moves = allBaseMoves;
