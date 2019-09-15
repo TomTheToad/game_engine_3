@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "SDL.h"
-#include "../gameItems/GameItem.h"
+#include "GameItem.h"
 
 class RenderController {
     public:

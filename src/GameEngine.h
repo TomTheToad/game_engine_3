@@ -11,9 +11,9 @@
 
 // Required includes
 #include <vector>
-#include "../gameItems/GameItem.h"
+#include "GameItem.h"
 #include "SDL.h"
-#include "../renderer/RenderController.h"
+#include "RenderController.h"
 
 class GameEngine {
 

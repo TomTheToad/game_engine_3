@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-#include "gameItems/GameItem.h"
-#include "engine/GameEngine.h"
-#include "renderer/RenderController.h"
+#include "GameItem.h"
+#include "GameEngine.h"
+#include "RenderController.h"
 
 int main() {
 
