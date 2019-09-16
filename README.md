@@ -4,6 +4,18 @@
 
 I chose to build my own game loosely based on the example [Snake game](https://github.com/udacity/CppND-Capstone-Snake-Game) from Udacity. I really liked the mechanic that was used for the snake body in the given game so I decided to dry and develop something similar. I figured that the classic Centipede game concept would be close.
 
+## Known issue with Udacity TurboVNC server:
+I have had to make this fix a number of times
+When running cmake .. && make from the build folder you may get a error related to white space.
+
+The solution can be found [here](https://stackoverflow.com/questions/45730098/cmake-leading-or-trailing-whitespace-policy-cmp0004)
+
+A file at this location: /usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake
+has white space within quotes: set(SDL2_LIBRARIES "-L${SDL2_LIBDIR}  -lSDL2 ").
+You must remove the white space set(SDL2_LIBRARIES "-L${SDL2_LIBDIR}  -lSDL2").
+
+The environment refreshes / breaks itself when reloaded. I have no control over this.
+
 ## Rubric items
 
 ## All required
