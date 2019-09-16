@@ -72,7 +72,7 @@ class GameEngine {
 
                 // After every second, update the window title.
                 if (frameEnd - titleTimeStamp >= 1000) {
-                    renderController->updateWindowTitle(gameController->score, frameCount);
+                    renderController->updateWindowTitle(gameController->score, gameController->level, frameCount);
                     frameCount = 0;
                     titleTimeStamp = frameEnd;
                 }

@@ -82,8 +82,8 @@ class RenderController {
         SDL_Quit();
     }
 
-    void updateWindowTitle(int score, int fps) {
-        std::string title{"Centipede Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+    void updateWindowTitle(int score, int level, int fps) {
+        std::string title{"Centipede Score: " + std::to_string(score) + " Level: " + std::to_string(level) + " FPS: " + std::to_string(fps)};
         SDL_SetWindowTitle(sdl_window, title.c_str());
     }   
 

@@ -12,6 +12,7 @@ class GameController {
     public:
         bool isRunning = true;
         int score = 0;
+        int level = 0;
 
         int screenWidth = 640;
         int screenHeight = 640;
@@ -39,12 +40,13 @@ class GameController {
             player->yMin = screenHeight - (screenHeight / 4);
 
             // Create centipede
-            CentipedeItem * centipede = new CentipedeItem(0, 0);
-            centipede->xMax = screenWidth;
-            centipede->yMax = screenHeight;
+            // CentipedeItem * centipede = new CentipedeItem(0, 0);
+            // centipede->xMax = screenWidth;
+            // centipede->yMax = screenHeight;
+            launchNextLevel();
             
             gameItems.push_back(player);
-            gameItems.push_back(centipede);
+            // gameItems.push_back(centipede);
 
         }
 
@@ -101,6 +103,8 @@ class GameController {
                                 score += 10;
                                 if(enemy->segments.size() <= 0) {
                                     deleteGameItem(enemy);
+                                    level++;
+                                    launchNextLevel();
                                     return true;
                                 }
                             }
@@ -124,6 +128,16 @@ class GameController {
                 default:
                     return false;
             }
+        }
+
+        void launchNextLevel() {
+            CentipedeItem * centipede = new CentipedeItem(0, 0);
+            centipede->xMax = screenWidth;
+            centipede->yMax = screenHeight;
+            if(level > 0) {
+                centipede->moveDistanceInPixels += (centipede->moveDistanceInPixels * .25);
+            }
+            gameItems.push_back(centipede);
         }
 
         void deleteGameItem(GameItem * item) {
