@@ -81,7 +81,22 @@ class RenderController {
         block->x = item->x;
         block->y = item->y;
         SDL_RenderFillRect(sdl_renderer, block);
+
+        if(item->segments.size() > 0) {
+            for(auto * segment : item->segments) {
+                RenderItem(segment, block);
+            }
+        }
     }
+
+    // void RenderSegments(GameItem * item, SDL_Rect * block) {
+    //     for(int i = 0; i <= item->numSegments; i++) {
+    //         SDL_SetRenderDrawColor(sdl_renderer, item->red, item->green, item->blue, item->alpha);
+    //         block->x = item->x;
+    //         block->y = item->y;
+    //         SDL_RenderFillRect(sdl_renderer, block);
+    //     }
+    // }
 
     ~RenderController() {
         SDL_DestroyWindow(sdl_window);

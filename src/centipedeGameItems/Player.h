@@ -6,8 +6,8 @@
 
 class PlayerItem : public GameItem {
     public:
-        PlayerItem(int x, int y, int widthInPixels, int heightInPixels) : 
-        GameItem(x, y, widthInPixels, heightInPixels) {
+        PlayerItem(int x, int y, int widthInPixels = 20, int heightInPixels = 20) : 
+            GameItem(x, y, widthInPixels, heightInPixels) {
             isPlayerControlled = true;
             allowed_moves = allBaseMoves;
         }
@@ -15,7 +15,7 @@ class PlayerItem : public GameItem {
         // Handle input
         void handleInput(Base_Moves move) {
             if(std::find(allowed_moves.begin(), allowed_moves.end(), move) != allowed_moves.end()) {
-                // std::printf("Command received: %d", move);
+                if (!isAlive) { return; }
 
                 switch(move) {
                     case Base_Moves::left:
