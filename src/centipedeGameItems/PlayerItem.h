@@ -2,6 +2,7 @@
 #define PLAYERITEM_H
 
 #include <iostream>
+#include <algorithm>
 #include "../GameItem.h"
 
 class PlayerItem : public GameItem {
