@@ -91,7 +91,12 @@ class GameController {
                 case GameItem::GameItemType::projectile:
                     for(auto * enemy : gameItems) {
                         if(enemy->type == GameItem::GameItemType::centipede) {
-                            if((enemy->x > item->xMin) && (enemy->x < item->xMax) && (enemy->y < item->yMax) && (enemy->y > item->yMin)) {
+                            int delta = 10;
+                            int x1 = item->x;
+                            int y1 = item->y;
+                            int x2 = enemy->x;
+                            int y2 = enemy->y;
+                            if ((x1 > (x2 - delta)) && (x1 > (x2 + delta)) && (y1 > (y2 - delta)) && (y1 < (y2 + delta))) {
                                 enemy->segments.pop_back();
                                 if(enemy->segments.size() <= 0) {
                                     deleteGameItem(enemy);

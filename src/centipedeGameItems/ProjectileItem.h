@@ -15,17 +15,16 @@ class ProjectileItem : public GameItem {
         }
 
         void update() {
+
+            // Continuously move up
             y -= moveDistanceInPixels;
 
-            yMin = (y - 5);
-            yMax = (y + heightInPixels + 5);
-            xMin = (x - 5);
-            xMax = (x + widthInPixels + 5);
-
+            // If y is less then 0, off the board, remove
             if(y <= 0) {
                 isAlive = false;
             }
 
+            // Update the following segments
             updateSegments(x, y);
         }
 

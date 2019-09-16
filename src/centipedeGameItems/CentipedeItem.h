@@ -17,6 +17,7 @@ class CentipedeItem : public GameItem {
 
         // TODO: make movement random
         // TODO: needs own thread / speed
+        // Override update
         void update() {
 
             if (x < xMin) {
@@ -35,7 +36,7 @@ class CentipedeItem : public GameItem {
             }
         }
 
-       // Handle input
+       // Override handleInput
         void handleInput(Base_Moves move) {
             if(std::find(allowed_moves.begin(), allowed_moves.end(), move) != allowed_moves.end()) {
                 if (!isAlive) { return; }
