@@ -9,7 +9,6 @@
 class RenderController {
     public:
         // Fields
-        // std::vector<GameItem *> gameItems; 
         GameController * gameController;
 
         RenderController(
@@ -36,7 +35,6 @@ class RenderController {
             }
 
             // Create renderer
-            // sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED | SDL_WINDOW_MAXIMIZED);
             sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
             if (nullptr == sdl_renderer) {
                 std::cerr << "Renderer could not be created.\n";
@@ -47,8 +45,6 @@ class RenderController {
 
     void render() {
         // Intiate block, extrapolate dimensions
-
-        // TODO: Is this all necessary?
         SDL_Rect block;
         block.w = gameController->screenWidth / gameController->gridWidth;
         block.h = gameController->gridHeight / gameController->gridWidth;
@@ -86,17 +82,7 @@ class RenderController {
         SDL_Quit();
     }
 
-    // unsigned int getWindowWidth() { return window_width; }
-    // unsigned int getWindowHeight() { return window_height; }
-    // unsigned int getGridWidth() { return grid_width; }
-    // unsigned int getGridHeight() { return grid_height; }
-
     private:
-        // unsigned int window_width;
-        // unsigned int window_height;
-        // unsigned int grid_width;
-        // unsigned int grid_height;
-
         SDL_Window * sdl_window;
         SDL_Renderer * sdl_renderer;
 

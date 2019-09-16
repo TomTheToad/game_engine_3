@@ -38,7 +38,6 @@ class PlayerItem : public GameItem {
         }
 
         void update() {
-            // std::cout << "updated reached" << std::endl;
             if (x < xMin) {
                 x = 0;
             } else if (x > xMax - widthInPixels) {

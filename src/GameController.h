@@ -48,7 +48,6 @@ class GameController {
         }
 
         void updateGameItems() {
-            // std::cout << "updateGameItems called" << std::endl;
             for (auto * item : gameItems) {
                 // Update item
                 item->update();

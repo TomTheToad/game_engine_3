@@ -1,8 +1,3 @@
-// Game engine requirements
-// 1) SDL2 Renderer
-// 2) Game Input Handler/ Controller
-// 3) Game Items (game pieces, game board, etc.)
-
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
 
@@ -27,8 +22,6 @@ class GameEngine {
         ~GameEngine() {
             // nothing to do here either
         }
-
-        // bool getIsRunning() { return isRunning; }
 
         void startGame() { 
             gameController->isRunning = true;
@@ -75,6 +68,7 @@ class GameEngine {
                 frameCount++;
                 frameDuration = frameEnd - frameStart;
 
+                // If cycling too fast, delay render
                 if(frameDuration < gameController->targetFrameDuration) {
                     SDL_Delay(gameController->targetFrameDuration - frameDuration);
                 }
@@ -101,23 +95,18 @@ class GameEngine {
                     switch(e.key.keysym.sym) {
                         case SDLK_UP:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::up);
-                            // std::cout << "Up" << std::endl;
                             break;
                         case SDLK_DOWN:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::down);
-                            // std::cout << "Down" << std::endl;
                             break;
                         case SDLK_LEFT:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::left);
-                            // std::cout << "Left" << std::endl;
                             break;
                         case SDLK_RIGHT:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::right);
-                            // std::cout << "Right" << std::endl;
                             break;
                         case SDLK_SPACE:
                             gameController->sendInputToGameItems(GameItem::Base_Moves::shoot);
-                            // std::cout << "Shoot!" << std::endl;
                             break;
                     }
                 }
