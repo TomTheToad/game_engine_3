@@ -49,6 +49,7 @@ class GameEngine {
         // Private methods
         // Main game engine loop macro
         void run() {
+            unsigned int titleTimeStamp = SDL_GetTicks();
             frameCount = 0;
 
             std::cout << "Game is running" << std::endl;
@@ -63,10 +64,18 @@ class GameEngine {
                 update();
                 // 3) Render to the screen
                 render();
+                frameEnd = SDL_GetTicks();
 
                 // Keep track of how long each loop takes
                 frameCount++;
                 frameDuration = frameEnd - frameStart;
+
+                // After every second, update the window title.
+                if (frameEnd - titleTimeStamp >= 1000) {
+                    renderController->updateWindowTitle(gameController->score, frameCount);
+                    frameCount = 0;
+                    titleTimeStamp = frameEnd;
+                }
 
                 // If cycling too fast, delay render
                 if(frameDuration < gameController->targetFrameDuration) {

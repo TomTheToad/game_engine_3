@@ -11,6 +11,7 @@
 class GameController {
     public:
         bool isRunning = true;
+        int score = 0;
 
         int screenWidth = 640;
         int screenHeight = 640;
@@ -97,6 +98,7 @@ class GameController {
                             int y2 = enemy->y;
                             if ((x1 > (x2 - delta)) && (x1 > (x2 + delta)) && (y1 > (y2 - delta)) && (y1 < (y2 + delta))) {
                                 enemy->segments.pop_back();
+                                score += 10;
                                 if(enemy->segments.size() <= 0) {
                                     deleteGameItem(enemy);
                                     return true;

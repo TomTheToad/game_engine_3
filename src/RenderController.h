@@ -82,6 +82,16 @@ class RenderController {
         SDL_Quit();
     }
 
+    // void Renderer::UpdateWindowTitle(int score, int fps) {
+    //     std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+    //     SDL_SetWindowTitle(sdl_window, title.c_str());
+    // }
+
+    void updateWindowTitle(int score, int fps) {
+        std::string title{"Centipede Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+        SDL_SetWindowTitle(sdl_window, title.c_str());
+    }   
+
     private:
         SDL_Window * sdl_window;
         SDL_Renderer * sdl_renderer;
