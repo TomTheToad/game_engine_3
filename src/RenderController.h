@@ -4,26 +4,16 @@
 #include <vector>
 #include "SDL.h"
 #include "GameItem.h"
+#include "GameController.h"
 
 class RenderController {
     public:
         // Fields
-        std::vector<GameItem *> gameItems; 
+        // std::vector<GameItem *> gameItems; 
+        GameController * gameController;
 
-        // Constructor TODO: move to cpp? do we need grid?
         RenderController(
-            unsigned int window_width,
-            unsigned int window_height,
-            unsigned int grid_width,
-            unsigned int grid_height,
-            std::vector<GameItem *> gameItems)
-            : 
-            window_width(window_width), 
-            window_height(window_height), 
-            grid_width(grid_width),
-            grid_height(grid_height),
-            gameItems(gameItems)
-            {
+            GameController * gameController) : gameController(gameController) {
         
             // Initialize SDL
             if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -36,8 +26,8 @@ class RenderController {
                 "BGE",
                 SDL_WINDOWPOS_CENTERED,
                 SDL_WINDOWPOS_CENTERED, 
-                window_width,
-                window_height, 
+                gameController->screenWidth,
+                gameController->screenHeight, 
                 SDL_WINDOW_SHOWN);
 
             if (nullptr == sdl_window) {
@@ -60,15 +50,15 @@ class RenderController {
 
         // TODO: Is this all necessary?
         SDL_Rect block;
-        block.w = window_width / grid_width;
-        block.h = window_height / grid_height;
+        block.w = gameController->screenWidth / gameController->gridWidth;
+        block.h = gameController->gridHeight / gameController->gridWidth;
 
         // Clear the screen
         SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
         SDL_RenderClear(sdl_renderer);
 
         // TODO: render given game items
-        for (auto * item : gameItems) {
+        for (auto * item : gameController->gameItems) {
             RenderItem(item, &block);
         }
 
@@ -78,6 +68,8 @@ class RenderController {
 
     void RenderItem(GameItem * item, SDL_Rect * block) {
         SDL_SetRenderDrawColor(sdl_renderer, item->red, item->green, item->blue, item->alpha);
+        block->w = item->widthInPixels;
+        block->h = item->heightInPixels;
         block->x = item->x;
         block->y = item->y;
         SDL_RenderFillRect(sdl_renderer, block);
@@ -89,30 +81,21 @@ class RenderController {
         }
     }
 
-    // void RenderSegments(GameItem * item, SDL_Rect * block) {
-    //     for(int i = 0; i <= item->numSegments; i++) {
-    //         SDL_SetRenderDrawColor(sdl_renderer, item->red, item->green, item->blue, item->alpha);
-    //         block->x = item->x;
-    //         block->y = item->y;
-    //         SDL_RenderFillRect(sdl_renderer, block);
-    //     }
-    // }
-
     ~RenderController() {
         SDL_DestroyWindow(sdl_window);
         SDL_Quit();
     }
 
-    unsigned int getWindowWidth() { return window_width; }
-    unsigned int getWindowHeight() { return window_height; }
-    unsigned int getGridWidth() { return grid_width; }
-    unsigned int getGridHeight() { return grid_height; }
+    // unsigned int getWindowWidth() { return window_width; }
+    // unsigned int getWindowHeight() { return window_height; }
+    // unsigned int getGridWidth() { return grid_width; }
+    // unsigned int getGridHeight() { return grid_height; }
 
     private:
-        unsigned int window_width;
-        unsigned int window_height;
-        unsigned int grid_width;
-        unsigned int grid_height;
+        // unsigned int window_width;
+        // unsigned int window_height;
+        // unsigned int grid_width;
+        // unsigned int grid_height;
 
         SDL_Window * sdl_window;
         SDL_Renderer * sdl_renderer;

@@ -8,7 +8,9 @@
 
 class GameItem {
     public:
-        
+        // Inner enum for game item types (use for collions detection)
+        enum class GameItemType {player, centipede, projectile, general};
+
         // Inner enum with allowed movements
         enum class Base_Moves {left, right, up, down, shoot};
         std::vector<Base_Moves> allBaseMoves {Base_Moves::down, Base_Moves::up, Base_Moves::right, Base_Moves::left, Base_Moves::shoot};
@@ -55,14 +57,14 @@ class GameItem {
             return;
         }
 
-        // void virtual HandleCollision();
         bool hasImage() { return (imageFile.length() > 0); }
+        GameItemType type = GameItemType::general;
 
         // location
         int x = 0;
         int y = 0;
-        int widthInPixels = 10;
-        int heightInPixels = 10;
+        int widthInPixels;
+        int heightInPixels;
         int moveDistanceInPixels = 10;
         int lastY = 0;
         int lastX = 0;
@@ -70,6 +72,7 @@ class GameItem {
         // Item game specific details with defaults
         bool isPlayerControlled = false;
         bool isAlive = true;
+        std::vector<GameItem *> enemies = {};
 
         // for chain items
         int numStartingSegments = 0;

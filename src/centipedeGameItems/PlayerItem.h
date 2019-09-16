@@ -10,6 +10,7 @@ class PlayerItem : public GameItem {
             GameItem(x, y, widthInPixels, heightInPixels) {
             isPlayerControlled = true;
             allowed_moves = allBaseMoves;
+            type = GameItemType::player;
         }
         
         // Handle input

@@ -6,24 +6,19 @@
 class CentipedeItem : public GameItem {
     public:
 
-        CentipedeItem(int x, int y, int widthInPixels = 40, int heightInPixels = 10) :
+        CentipedeItem(int x, int y, int widthInPixels = 10, int heightInPixels = 10) :
             GameItem(x, y, widthInPixels, heightInPixels, 100) {
                 allowed_moves = {Base_Moves::down, Base_Moves::left, Base_Moves::right};
                 // TODO: make direction dynamic
                 direction = Base_Moves::right;
                 moveDistanceInPixels = 5;
+                type = GameItemType::centipede;
         }
 
         // TODO: make movement random
         // TODO: needs own thread / speed
         void update() {
-            // keep track of last postion for next segment
-            lastX = x;
-            lastY = y;
 
-            // if (y > (yMax / 2) && moveDistanceInPixels < 8)
-            //     { moveDistanceInPixels += 1; }
-            
             if (x < xMin) {
                 x = 0;
                 handleInput(Base_Moves::down);

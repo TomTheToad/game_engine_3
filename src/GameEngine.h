@@ -31,16 +31,8 @@ class GameEngine {
             isRunning = false;
         }
 
-        // GameEngine(std::vector<GameItem *> gameItems, RenderController * renderController) :
-        //     gameItems(gameItems), renderController(renderController) { }
         GameEngine(GameController * gameController) : gameController(gameController) {
-            renderController = new RenderController(
-                gameController->screenWidth, 
-                gameController->screenHeight,
-                gameController->gridWidth,
-                gameController->gridHeight,
-                gameController->gameItems
-                );
+            renderController = new RenderController(gameController);
         }
 
         ~GameEngine() {
