@@ -4,9 +4,21 @@
 
 I chose to build my own game loosely based on the example [Snake game](https://github.com/udacity/CppND-Capstone-Snake-Game) from Udacity. I really liked the mechanic that was used for the snake body in the given game so I decided to dry and develop something similar. I figured that the classic Centipede game concept would be close.
 
+You can easily launch the game from home/workspace/game_engine_3/build/  by typing ./centipede
+
+My working repository can be found [here](https://github.com/TomTheToad/game_engine_3)
+
+## Game Play
+The controls:
+ The arrows (up, down, left, right) allow you to move your player piece, a cannon, around the bottom third of the screen.
+ Press the space bar to shoot.
+ 
+ The goal is too shoot the centipede until no segments are left. If you manage to kill the centipede, another one, moving 25% faster will take it's place. If you get too close ... game over! Enjoy.
+
 ## Known issue with Udacity TurboVNC server:
 I have had to make this fix a number of times
 When running cmake .. && make from the build folder you may get a error related to white space.
+Hopefully you'll just be able to run the executable as is.
 
 The solution can be found [here](https://stackoverflow.com/questions/45730098/cmake-leading-or-trailing-whitespace-policy-cmp0004)
 
@@ -44,6 +56,8 @@ The environment refreshes / breaks itself when reloaded. I have no control over 
     A mutex lock is utilized in GameController.h >> line 144 to prevent segment faults.
 
 ## File structure
+
+Root directory is located at home/workspace/game_engine_3/
 
 / root level /
 build ( <-- will need to be created as indicated below)
