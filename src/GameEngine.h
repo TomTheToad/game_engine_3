@@ -20,17 +20,6 @@ class GameEngine {
 
     public:
         // Public methods
-        bool getIsRunning() { return isRunning; }
-
-        void startGame() { 
-            isRunning = true;
-            run();
-        }
-
-        void stopGame() {
-            isRunning = false;
-        }
-
         GameEngine(GameController * gameController) : gameController(gameController) {
             renderController = new RenderController(gameController);
         }
@@ -39,11 +28,19 @@ class GameEngine {
             // nothing to do here either
         }
 
+        // bool getIsRunning() { return isRunning; }
+
+        void startGame() { 
+            gameController->isRunning = true;
+            run();
+        }
+
+        void stopGame() {
+            gameController->isRunning = false;
+        }
+
     private:
         // Private fields
-        bool isRunning = false;
-
-        // std::vector<GameItem *> gameItems;
         GameController * gameController;
         RenderController * renderController;
 
@@ -62,7 +59,7 @@ class GameEngine {
             frameCount = 0;
 
             std::cout << "Game is running" << std::endl;
-            while(isRunning) {
+            while(gameController->isRunning) {
 
                 // Get frame start time
                 frameStart = SDL_GetTicks();
@@ -99,7 +96,7 @@ class GameEngine {
         void checkForInput() {
             while(SDL_PollEvent(&e)) {
                 if(e.type == SDL_QUIT) {
-                    isRunning = false;
+                    gameController->isRunning = false;
                 } else if (e.type == SDL_KEYDOWN) {
                     switch(e.key.keysym.sym) {
                         case SDLK_UP:

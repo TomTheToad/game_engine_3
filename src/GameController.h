@@ -10,6 +10,8 @@
 
 class GameController {
     public:
+        bool isRunning = true;
+
         int screenWidth = 640;
         int screenHeight = 640;
 
@@ -79,7 +81,6 @@ class GameController {
          // Shoot projectile
         void shootProjectile(int startingX, int startingY) {
             ProjectileItem * bullet = new ProjectileItem(startingX, startingY);
-            std::cout << "Projectile created" << std::endl;
             gameItems.push_back(bullet);
         }
 
@@ -122,6 +123,9 @@ class GameController {
         void deleteGameItem(GameItem * item) {
             std::lock_guard<std::mutex> lock(_mutex);
             gameItems.erase(std::remove(gameItems.begin(), gameItems.end(), item), gameItems.end());
+            if(item->type == GameItem::GameItemType::player) {
+                isRunning = false;
+            }
             delete item;
         }
 

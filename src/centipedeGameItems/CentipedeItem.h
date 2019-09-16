@@ -7,7 +7,7 @@ class CentipedeItem : public GameItem {
     public:
 
         CentipedeItem(int x, int y, int widthInPixels = 10, int heightInPixels = 10) :
-            GameItem(x, y, widthInPixels, heightInPixels, 100) {
+            GameItem(x, y, widthInPixels, heightInPixels, 50) {
                 allowed_moves = {Base_Moves::down, Base_Moves::left, Base_Moves::right};
                 // TODO: make direction dynamic
                 direction = Base_Moves::right;

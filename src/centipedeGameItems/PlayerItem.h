@@ -31,8 +31,7 @@ class PlayerItem : public GameItem {
                     case Base_Moves::down:
                         y += moveDistanceInPixels;
                         break;
-                    case Base_Moves::shoot:
-                        std::cout << "Pew Pew Pew";
+                    default:
                         break;
                 }
             }
