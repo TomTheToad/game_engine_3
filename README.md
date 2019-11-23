@@ -2,7 +2,7 @@
 
 ## Introduction
 
-I chose to build my own game loosely based on the example [Snake game](https://github.com/udacity/CppND-Capstone-Snake-Game) from Udacity. I really liked the mechanic that was used for the snake body in the given game so I decided to dry and develop something similar. I figured that the classic Centipede game concept would be close.
+I chose to build my own game loosely based on the example [Snake game](https://github.com/udacity/CppND-Capstone-Snake-Game) from Udacity. I really liked the mechanic that was used for the snake body in the given game so I decided to try and develop something similar. I figured that the classic Centipede game concept would be close.
 
 You can easily launch the game from home/workspace/game_engine_3/build/  by typing ./centipede
 
